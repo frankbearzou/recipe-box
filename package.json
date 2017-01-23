@@ -1,8 +1,11 @@
 {
-  "name": "react-app",
-  "version": "0.1.0",
-  "private": true,
+  "name": "recipe-box",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": "https://github.com/frankbearzou/recipe-box.git",
+  "homepage": "https://frankbearzou.github.io/recipe-box",
   "devDependencies": {
+    "gh-pages": "^0.12.0",
     "react-scripts": "0.8.4"
   },
   "dependencies": {
@@ -14,6 +17,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }

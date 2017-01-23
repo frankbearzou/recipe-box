@@ -1,6 +1,8 @@
 # Recipe Box
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
+Checking live demo at [https://frankbearzou.github.io/recipe-box/](https://frankbearzou.github.io/recipe-box/).
+
 Below you will find some information on how to perform common tasks.<br>
 
 ## User Stories
