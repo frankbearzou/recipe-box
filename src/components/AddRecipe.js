@@ -16,13 +16,13 @@ class AddRecipe extends React.Component {
 
   handleOpen = () => {
     this.setState({
-      open: true
+      editDialogOpen: true
     });
   };
 
   handleClose = () => {
     this.setState({
-      open: false
+      editDialogOpen: false
     });
   };
 
@@ -62,7 +62,7 @@ class AddRecipe extends React.Component {
         <Dialog
           title='Add a Recipe'
           actions={actions}
-          open={this.state.open}
+          open={this.state.editDialogOpen}
           onRequestClose={this.handleClose}
         >
           <hr/>

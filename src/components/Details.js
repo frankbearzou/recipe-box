@@ -8,20 +8,23 @@ class Details extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
+      editDialogOpen: false,
+      deleteDialogOpen: false
     };
   }
 
-  handleOpen = () => {
+  /**
+   * edit recipe
+   */
+  handleOpenEditDialog = () => {
     this.setState({
-      open: true
+      editDialogOpen: true
     });
   };
 
-  handleClose = () => {
-
+  handleEditDialogClose = () => {
     this.setState({
-      open: false
+      editDialogOpen: false
     });
   };
 
@@ -36,8 +39,28 @@ class Details extends React.Component {
     };
 
     this.props.editRecipe(this.props.recipe.name, recipe);
-    this.handleClose();
+    this.handleEditDialogClose();
   };
+
+  /**
+   * delete recipe
+   */
+  handleOpenDeleteDialog = () => {
+    this.setState({
+      deleteDialogOpen: true
+    });
+  };
+
+  handleDeleteDialogClose = () => {
+    this.setState({
+      deleteDialogOpen: false
+    });
+  };
+
+  handleDeleteRecipe = () => {
+    this.props.deleteRecipe(this.props.recipe.name);
+  };
+
 
   render() {
     console.log(this.props.recipe, this.props.recipe.items);
@@ -46,12 +69,21 @@ class Details extends React.Component {
     let content = (
       <div>
         {items ?
-          <div>
-            <h3>Recipe {this.props.recipe.name}</h3>
-            <h4>Ingredients</h4>
-            <ul>{items.map((item, i) => <li key={i}>{item}</li>)}</ul>
-            <RaisedButton label="Delete" secondary={true} onTouchTap={() => this.props.deleteRecipe(this.props.recipe.name)} style={style} />
-            <RaisedButton label="Edit" primary={true} onTouchTap={this.handleOpen} style={style} />
+          <div className="panel-group">
+            <div className="panel panel-info">
+              <div className="panel-heading">
+                <h4>Ingredients</h4>
+                <h3>Recipe {this.props.recipe.name}</h3>
+              </div>
+              <div className="panel-body">
+                <ul>{items.map((item, i) => <li key={i}>{item}</li>)}</ul>
+              </div>
+            </div>
+
+
+
+            <RaisedButton label="Delete" secondary={true} onTouchTap={this.handleOpenDeleteDialog} style={style} />
+            <RaisedButton label="Edit" primary={true} onTouchTap={this.handleOpenEditDialog} style={style} />
           </div>
           : null
         }
@@ -59,7 +91,7 @@ class Details extends React.Component {
     );
 
 
-    const actions = [
+    const editActions = [
       <FlatButton
         label="Edit Recipe"
         primary={true}
@@ -69,7 +101,24 @@ class Details extends React.Component {
       <FlatButton
         label="Close"
         primary={true}
-        onTouchTap={this.handleClose}
+        onTouchTap={this.handleEditDialogClose}
+      />,
+    ];
+
+    const deleteActions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleDeleteDialogClose}
+      />,
+      <FlatButton
+        label="Delete"
+        primary={true}
+        onTouchTap={() => {
+          this.handleDeleteRecipe();
+          this.handleDeleteDialogClose();
+          }
+        }
       />,
     ];
 
@@ -79,10 +128,10 @@ class Details extends React.Component {
         {content}
         <Dialog
           title="Edit Recipe"
-          actions={actions}
+          actions={editActions}
           modal={false}
-          open={this.state.open}
-          onRequestClose={this.handleClose}
+          open={this.state.editDialogOpen}
+          onRequestClose={this.handleEditDialogClose}
           ref={(input) => this.name = input}
         >
           <hr/>
@@ -98,6 +147,15 @@ class Details extends React.Component {
             rows={2}
             ref="ingredients"
           /><br />
+        </Dialog>
+
+        <Dialog
+          actions={deleteActions}
+          modal={false}
+          open={this.state.deleteDialogOpen}
+          onRequestClose={this.handleDeleteDialogClose}
+        >
+          Delete Recipe {this.props.recipe.name}?
         </Dialog>
       </div>
     );

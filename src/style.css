@@ -1,3 +1,6 @@
+body {
+  background-color: azure; }
+
 .add-recipe-box {
   border: 1px solid black;
   width: 400px;

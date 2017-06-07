@@ -6,16 +6,19 @@ const Header = (props) => {
   return (
     <div>
       <h2>Recipes</h2>
-      <ul>
+      <div className="list-group">
         {
 
           props.recipes.map((recipe) =>
-            <li key={recipe.name}>
-              <a onClick={() => props.handleClick(recipe.name)}>{recipe.name}</a>
-            </li>
+            <a className="list-group-item list-group-item-success"
+               href="#"
+               key={recipe.name}
+               onClick={() => props.handleClick(recipe.name)}>
+              {recipe.name}
+            </a>
           )
         }
-      </ul>
+      </div>
     </div>
   );
 };
